@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy : MonoBehaviour {
+
+    public Transform axleMidPoint;
+    public float movementSpeed;
+    public GameManager gameManager;
+
+    void Start() {
+
+        axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;    
+    }
+
+    void Update() {
+        
+        transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, movementSpeed * Time.deltaTime);
+        transform.Rotate(0, 0, 60 * Time.deltaTime);
+    }
+
+    void OnTriggerEnter2D(Collider2D obj) {
+
+        if(obj.CompareTag("axle")) {
+
+            Destroy(gameObject);
+            gameManager.score++;
+        }
+    }
+}
