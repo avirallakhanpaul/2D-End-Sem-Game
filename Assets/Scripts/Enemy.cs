@@ -15,9 +15,15 @@ public class Enemy : MonoBehaviour {
     }
 
     void Update() {
-        
+
+        if (gm.isGameOver) {
+            Destroy(gameObject);
+            return;
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, movementSpeed * Time.deltaTime);
         transform.Rotate(0, 0, 60 * Time.deltaTime);
+    
     }
 
     void OnTriggerEnter2D(Collider2D obj) {

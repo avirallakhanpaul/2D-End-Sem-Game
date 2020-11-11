@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour {
         ballPlayerPrefabs = GameObject.FindGameObjectsWithTag("ball-player");
         spikePlayerPrefabs = GameObject.FindGameObjectsWithTag("spike-player");
 
+        foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+            spikePlayerPrefab.SetActive(false);
+        }
+
         isGameStateDefending = true;
 
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
@@ -85,6 +89,11 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+
+        if(isGameOver) {
+            CancelInvoke();
+            return;
+        }
 
         if(Input.GetKeyDown(KeyCode.A)) {
             isGameStateDefending = !isGameStateDefending;
