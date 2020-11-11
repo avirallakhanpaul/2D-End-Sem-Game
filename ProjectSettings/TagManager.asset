@@ -7,9 +7,6 @@ TagManager:
   - spike-enemy
   - axle-mid-point
   - axle
-  - ball-player
-  - spike-player
-  - ball-enemy
   layers:
   - Default
   - TransparentFX
