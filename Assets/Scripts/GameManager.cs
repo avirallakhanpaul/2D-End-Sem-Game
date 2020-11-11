@@ -99,6 +99,10 @@ public class GameManager : MonoBehaviour {
             isGameStateDefending = !isGameStateDefending;
         }
 
-        scoreText.text = score.ToString();
+        if(score == 0) {
+            scoreText.text = "";
+        } else {
+            scoreText.text = score.ToString();
+        }
     }
 }
