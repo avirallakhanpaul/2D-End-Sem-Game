@@ -6,10 +6,11 @@ public class Enemy : MonoBehaviour {
 
     public Transform axleMidPoint;
     public float movementSpeed;
-    public GameManager gameManager;
+    public GameManager gm;
 
     void Start() {
 
+        gm = GameManager.FindObjectOfType<GameManager>();
         axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;    
     }
 
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour {
         if(obj.CompareTag("axle")) {
 
             Destroy(gameObject);
-            gameManager.score++;
+            gm.score++;
         }
     }
 }
