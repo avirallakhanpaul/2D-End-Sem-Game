@@ -22,10 +22,30 @@ public class Enemy : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D obj) {
 
-        if(obj.CompareTag("axle")) {
+        if(gm.isGameStateDefending) {
+        
+            if(obj.CompareTag("axle")) {
 
-            Destroy(gameObject);
-            gm.score++;
+                Destroy(gameObject);
+                gm.score++;
+            } else if(obj.CompareTag("ball-player")) {
+
+                Destroy(gameObject);
+                gm.isGameOver = true;
+            }
+
+        } else if(!(gm.isGameStateDefending)) {
+
+            if(obj.CompareTag("axle")) {
+
+                Destroy(gameObject);
+                gm.isGameOver = true;
+            } else if(obj.CompareTag("spike-player")) {
+
+                Destroy(gameObject);
+                gm.score++;
+            }
         }
+
     }
 }

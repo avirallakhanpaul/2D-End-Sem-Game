@@ -16,8 +16,14 @@ public class GameManager : MonoBehaviour {
     public GameObject ball;
     private GameObject spikeEnemy;
     public float interval;
+    public bool isGameOver;
+    GameObject[] spikePlayerPrefabs;
+    GameObject[] ballPlayerPrefabs;
 
     void Start() {
+
+        ballPlayerPrefabs = GameObject.FindGameObjectsWithTag("ball-player");
+        spikePlayerPrefabs = GameObject.FindGameObjectsWithTag("spike-player");
 
         isGameStateDefending = true;
 
@@ -28,8 +34,25 @@ public class GameManager : MonoBehaviour {
     void InstantiateEnemy() {
 
         if(isGameStateDefending) {
+
+            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+                ballPlayerPrefab.SetActive(true);
+            }
+            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+                spikePlayerPrefab.SetActive(false);
+            }
+
             spikeEnemy = spike;
+
         } else if(!isGameStateDefending) {
+
+            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+                spikePlayerPrefab.SetActive(true);
+            }
+            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+                ballPlayerPrefab.SetActive(false);
+            }
+
             spikeEnemy = ball;
         }
 
@@ -62,6 +85,10 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+
+        if(Input.GetKeyDown(KeyCode.A)) {
+            isGameStateDefending = !isGameStateDefending;
+        }
 
         scoreText.text = score.ToString();
     }
