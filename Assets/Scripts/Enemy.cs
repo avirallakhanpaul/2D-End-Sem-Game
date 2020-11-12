@@ -7,11 +7,13 @@ public class Enemy : MonoBehaviour {
     public Transform axleMidPoint;
     public float movementSpeed;
     public GameManager gm;
+    public AudioSource scoreIncSoundEffect;
 
     void Start() {
 
         gm = GameManager.FindObjectOfType<GameManager>();
-        axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;    
+        axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;
+        scoreIncSoundEffect = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -23,7 +25,6 @@ public class Enemy : MonoBehaviour {
 
         transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, movementSpeed * Time.deltaTime);
         transform.Rotate(0, 0, 60 * Time.deltaTime);
-    
     }
 
     void OnTriggerEnter2D(Collider2D obj) {
