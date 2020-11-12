@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour {
     public bool isGameOver;
     GameObject[] spikePlayerPrefabs;
     GameObject[] ballPlayerPrefabs;
+    GameObject[] enemies;
+    public bool isMute;
 
     void Start() {
 
@@ -33,6 +36,8 @@ public class GameManager : MonoBehaviour {
 
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         InvokeRepeating("InstantiateEnemy", 1, interval);
+
+        isMute = false;
     }
 
     void InstantiateEnemy() {
@@ -90,6 +95,8 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
 
+        enemies = GameObject.FindGameObjectsWithTag("enemy");
+
         if(isGameOver) {
             CancelInvoke();
             return;
@@ -97,6 +104,10 @@ public class GameManager : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.A)) {
             isGameStateDefending = !isGameStateDefending;
+            
+            foreach (GameObject enemy in enemies) {
+                Destroy(enemy);
+            }
         }
 
         if(score == 0) {
@@ -104,5 +115,19 @@ public class GameManager : MonoBehaviour {
         } else {
             scoreText.text = score.ToString();
         }
+    }
+
+    public void startGame() {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void quitGame() {
+        Application.Quit();
+    }
+
+    public void toggleGameSound() {
+        
+        isMute = !isMute;
+        AudioListener.volume = isMute ? 0 : 1;
     }
 }

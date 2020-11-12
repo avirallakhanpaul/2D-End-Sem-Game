@@ -10,6 +10,7 @@ TagManager:
   - ball-enemy
   - ball-player
   - spike-player
+  - enemy
   layers:
   - Default
   - TransparentFX
