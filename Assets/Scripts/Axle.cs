@@ -20,9 +20,21 @@ public class Axle : MonoBehaviour {
 
         gameObject.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown("space")) {
+        if(gm.forMobile) {
 
-            rotationSpeed = -rotationSpeed;
+            if(Input.touchCount > 0) {
+
+                Touch touch = Input.GetTouch(0);
+
+                if(touch.phase == TouchPhase.Began) {
+                    rotationSpeed = -rotationSpeed;
+                }
+            }
+        } else {
+
+            if(Input.GetKeyDown("space")) {
+                rotationSpeed = -rotationSpeed;
+            }
         }
     }
 }

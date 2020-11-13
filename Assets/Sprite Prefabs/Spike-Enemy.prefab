@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278448930657982673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.586482, y: -16.1678, z: 0}
+  m_LocalPosition: {x: -0.97087, y: -22.375969, z: 0}
   m_LocalScale: {x: 0.075, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axleMidPoint: {fileID: 0}
-  movementSpeed: 5
+  currentSpeed: 5
+  maxSpeed: 10
   gm: {fileID: 0}
   scoreIncSoundEffect: {fileID: 0}
+  abc: 1
 --- !u!58 &5676695550212452377
 CircleCollider2D:
   m_ObjectHideFlags: 0

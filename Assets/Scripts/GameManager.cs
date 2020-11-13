@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -21,7 +20,8 @@ public class GameManager : MonoBehaviour {
     GameObject[] spikePlayerPrefabs;
     GameObject[] ballPlayerPrefabs;
     GameObject[] enemies;
-    public bool isMute;
+    Enemy enemyScript;
+    public bool forMobile;
 
     void Start() {
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         InvokeRepeating("InstantiateEnemy", 1, interval);
 
-        isMute = false;
+        // enemyScript = GameObject.FindGameObjectWithTag("enemy").GetComponent<Enemy>();
     }
 
     void InstantiateEnemy() {
@@ -112,22 +112,15 @@ public class GameManager : MonoBehaviour {
 
         if(score == 0) {
             scoreText.text = "";
-        } else {
+        }  else {
             scoreText.text = score.ToString();
         }
-    }
 
-    public void startGame() {
-        SceneManager.LoadScene("Main");
-    }
-
-    public void quitGame() {
-        Application.Quit();
-    }
-
-    public void toggleGameSound() {
-        
-        isMute = !isMute;
-        AudioListener.volume = isMute ? 0 : 1;
+        // if (score == 2) {
+        //     enemyScript.increaseSpeed(5f, 5f);
+        // }
+        // if (score == 5) {
+        //     enemyScript.increaseSpeed(5f, 10f);
+        // }
     }
 }

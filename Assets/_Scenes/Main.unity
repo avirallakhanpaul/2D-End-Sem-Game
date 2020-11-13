@@ -409,7 +409,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -95}
+  m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &949146875
@@ -673,7 +673,7 @@ MonoBehaviour:
   ball: {fileID: 786207621755013999, guid: cf8c4bd141793464aa99c8ccfef95bba, type: 3}
   interval: 2
   isGameOver: 0
-  isMute: 0
+  forMobile: 0
 --- !u!1001 &7069601781805124968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,7 +749,7 @@ PrefabInstance:
     - target: {fileID: 7069601781805124971, guid: 83c1928e6120a3143a202976f45e3622,
         type: 3}
       propertyPath: rotationSpeed
-      value: 120
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7069601782732565286, guid: 83c1928e6120a3143a202976f45e3622,
         type: 3}
@@ -909,4 +909,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.3246986
+  m_Radius: 0.9410067

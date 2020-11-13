@@ -5,10 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     public Transform axleMidPoint;
-    public float movementSpeed;
+    public float currentSpeed;
+    public float maxSpeed;
+    private float accelerationTime;
     public GameManager gm;
     public AudioSource scoreIncSoundEffect;
-
+    public bool abc = true;
     void Start() {
 
         gm = GameManager.FindObjectOfType<GameManager>();
@@ -23,7 +25,24 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, movementSpeed * Time.deltaTime);
+        if(gm.score > 2 && gm.score < 10) {
+            if(!(currentSpeed >= maxSpeed)) {
+                currentSpeed += 5 * Time.deltaTime;
+            }
+        } else if(gm.score >= 10) {
+
+            if(abc) {
+                currentSpeed = maxSpeed;
+                maxSpeed = 15.0f;
+                abc = false;
+            }
+
+            if(!(currentSpeed >= maxSpeed)) {
+                currentSpeed += 5 * Time.deltaTime;
+            }
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, currentSpeed * Time.deltaTime);
         transform.Rotate(0, 0, 60 * Time.deltaTime);
     }
 
@@ -55,4 +74,13 @@ public class Enemy : MonoBehaviour {
         }
 
     }
+
+    // public void increaseSpeed(float currentSpeedInc, float maxSpeedInc) {
+
+    //     if(!(currentSpeed >= maxSpeed)) {
+    //         Debug.Log("Speed Increased");
+    //         currentSpeed += currentSpeedInc;
+    //         maxSpeed += maxSpeedInc;
+    //     }
+    // }
 }
