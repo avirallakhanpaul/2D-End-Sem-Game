@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -21,9 +22,12 @@ public class GameManager : MonoBehaviour {
     GameObject[] spikePlayerPrefabs;
     GameObject[] ballPlayerPrefabs;
     GameObject[] enemies;
+    GameObject[] powerups;
     public AudioSource[] soundEffects;
     public AudioSource scoreIncSoundEffect;
     public AudioSource gameOverSoundEffect;
+    public AudioSource gameStateChangeSoundEffect;
+    public Canvas GameOverCanvas;
     public bool forMobile;
 
     void Start() {
@@ -43,6 +47,9 @@ public class GameManager : MonoBehaviour {
         soundEffects = GetComponents<AudioSource>();
         scoreIncSoundEffect = soundEffects[0];
         gameOverSoundEffect = soundEffects[1];
+        gameStateChangeSoundEffect = soundEffects[2];
+
+        GameOverCanvas.gameObject.SetActive(false);
     }
 
     void InstantiateEnemyAndPowerup() {
@@ -79,7 +86,7 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(5, 12) == Random.Range(5, 12)) {
+                if(Random.Range(0, 14) == Random.Range(0, 14)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -91,7 +98,7 @@ public class GameManager : MonoBehaviour {
 
             case 2:
 
-                if(Random.Range(5, 12) == Random.Range(5, 12)) {
+                if(Random.Range(0, 14) == Random.Range(0, 14)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -103,7 +110,7 @@ public class GameManager : MonoBehaviour {
 
             case 3:
 
-                if (Random.Range(5, 12) == Random.Range(5, 12)) {
+                if (Random.Range(0, 14) == Random.Range(0, 14)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -115,7 +122,7 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(5, 12) == Random.Range(5, 12)) {
+                if (Random.Range(0, 14) == Random.Range(0, 14)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -130,9 +137,12 @@ public class GameManager : MonoBehaviour {
     void Update() {
 
         enemies = GameObject.FindGameObjectsWithTag("enemy");
+        powerups = GameObject.FindGameObjectsWithTag("powerup");
 
         if(isGameOver) {
+
             CancelInvoke();
+            GameOverCanvas.gameObject.SetActive(true);
             return;
         }
 
@@ -154,9 +164,14 @@ public class GameManager : MonoBehaviour {
     public void changeGameState() {
 
         isGameStateDefending = !isGameStateDefending;
+        gameStateChangeSoundEffect.Play();
 
         foreach (GameObject enemy in enemies) {
             Destroy(enemy);
+        }
+
+        foreach (GameObject powerup in powerups) {
+            Destroy(powerup);
         }
     } 
 
@@ -168,3 +183,5 @@ public class GameManager : MonoBehaviour {
         gameOverSoundEffect.Play();
     }
 }
+
+// Instruction on Playing Screen

@@ -6,16 +6,12 @@ public class Axle : MonoBehaviour {
     
     GameManager gm;
     public float rotationSpeed;
-    // public AudioSource[] soundEffects;
-    // public AudioSource scoreIncSoundEffect;
-    // public AudioSource gameOverSoundEffect;
+    public AudioSource directionChangeSoundEffect;
 
     void Start() {
 
         gm = GameObject.FindObjectOfType<GameManager>();
-        // soundEffects = GetComponents<AudioSource>();
-        // scoreIncSoundEffect = soundEffects[0];
-        // gameOverSoundEffect = soundEffects[1];
+        directionChangeSoundEffect = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -34,32 +30,34 @@ public class Axle : MonoBehaviour {
 
                 if(touch.phase == TouchPhase.Began) {
                     rotationSpeed = -rotationSpeed;
+                    directionChangeSoundEffect.Play();
                 }
             }
         } else {
 
             if(Input.GetKeyDown("space")) {
                 rotationSpeed = -rotationSpeed;
+                directionChangeSoundEffect.Play();
             }
         }
     }
 
-    void OnTriggerEnter2D(Collider2D obj) {
+    // void OnTriggerEnter2D(Collider2D obj) {
 
-        if(gm.isGameStateDefending) {
+    //     if(gm.isGameStateDefending) {
 
-            if (obj.name == "Spike-Enemy(Clone)") {
-                // Score Increase Sound
-                gm.playScoreIncSoundEffect();
-            } else if(obj.name == "Game State Swap Powerup") {
-                // Game State Change Sound 
-            }
-        } else {
+    //         if (obj.name == "Spike-Enemy(Clone)") {
+    //             // Score Increase Sound
+    //             gm.playScoreIncSoundEffect();
+    //         } else if(obj.name == "Game State Swap Powerup") {
+    //             // Game State Change Sound 
+    //         }
+    //     } else {
 
-            if (obj.name == "Ball-Enemy(Clone)") {
-                // Game Over Sound
-                gm.playGameOverSoundEffect();
-            }
-        }
-    }
+    //         if (obj.name == "Ball-Enemy(Clone)") {
+    //             // Game Over Sound
+    //             gm.playGameOverSoundEffect();
+    //         }
+    //     }
+    // }
 }

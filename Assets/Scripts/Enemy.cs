@@ -25,15 +25,16 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if(gm.score > 10 && gm.score < 20) {
+        if(gm.score > 10 && gm.score < 25) {
             if(!(currentSpeed >= maxSpeed)) {
                 currentSpeed += 5 * Time.deltaTime;
             }
-        } else if(gm.score >= 20) {
+        } else if(gm.score >= 25) {
 
             if(abc) {
                 currentSpeed = maxSpeed;
                 maxSpeed = 15.0f;
+                gm.interval = 1.5f;
                 abc = false;
             }
 
@@ -54,10 +55,12 @@ public class Enemy : MonoBehaviour {
 
                 Destroy(gameObject);
                 gm.score++;
+                gm.playScoreIncSoundEffect();
             } else if(obj.CompareTag("ball-player")) {
 
                 Destroy(gameObject);
                 gm.isGameOver = true;
+                gm.playGameOverSoundEffect();
             }
 
         } else if(!(gm.isGameStateDefending)) {
@@ -66,21 +69,14 @@ public class Enemy : MonoBehaviour {
 
                 Destroy(gameObject);
                 gm.isGameOver = true;
+                gm.playGameOverSoundEffect();
             } else if(obj.CompareTag("spike-player")) {
 
                 Destroy(gameObject);
                 gm.score++;
+                gm.playScoreIncSoundEffect();
             }
         }
 
     }
-
-    // public void increaseSpeed(float currentSpeedInc, float maxSpeedInc) {
-
-    //     if(!(currentSpeed >= maxSpeed)) {
-    //         Debug.Log("Speed Increased");
-    //         currentSpeed += currentSpeedInc;
-    //         maxSpeed += maxSpeedInc;
-    //     }
-    // }
 }

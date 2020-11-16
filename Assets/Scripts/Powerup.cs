@@ -29,7 +29,6 @@ public class Powerup : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D obj) {
 
         if(obj.CompareTag("axle")) {
-            Destroy(gameObject);
             gm.changeGameState();
         }
     }
