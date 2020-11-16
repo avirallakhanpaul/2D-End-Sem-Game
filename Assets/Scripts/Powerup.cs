@@ -23,7 +23,7 @@ public class Powerup : MonoBehaviour {
         }
 
         transform.position = Vector3.MoveTowards(transform.position, axleMidPoint.position, currentSpeed * Time.deltaTime);
-        transform.Rotate(0, 0, 60 * Time.deltaTime);
+        transform.Rotate(0, 0, 80 * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D obj) {
