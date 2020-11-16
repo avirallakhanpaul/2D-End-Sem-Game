@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7404710506141938790}
   - component: {fileID: 6058632595574772920}
   - component: {fileID: -6916975957115438353}
+  - component: {fileID: -8177082348327147751}
   m_Layer: 0
   m_Name: Spike-Player
   m_TagString: spike-player
@@ -227,3 +228,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-8177082348327147751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007688865008181482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb774787ffc5d9743bec396e72e506e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}

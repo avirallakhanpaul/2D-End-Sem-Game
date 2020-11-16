@@ -6,10 +6,16 @@ public class Axle : MonoBehaviour {
     
     GameManager gm;
     public float rotationSpeed;
+    // public AudioSource[] soundEffects;
+    // public AudioSource scoreIncSoundEffect;
+    // public AudioSource gameOverSoundEffect;
 
     void Start() {
 
         gm = GameObject.FindObjectOfType<GameManager>();
+        // soundEffects = GetComponents<AudioSource>();
+        // scoreIncSoundEffect = soundEffects[0];
+        // gameOverSoundEffect = soundEffects[1];
     }
 
     void Update() {
@@ -34,6 +40,25 @@ public class Axle : MonoBehaviour {
 
             if(Input.GetKeyDown("space")) {
                 rotationSpeed = -rotationSpeed;
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D obj) {
+
+        if(gm.isGameStateDefending) {
+
+            if (obj.name == "Spike-Enemy(Clone)") {
+                // Score Increase Sound
+                gm.playScoreIncSoundEffect();
+            } else if(obj.name == "Game State Swap Powerup") {
+                // Game State Change Sound 
+            }
+        } else {
+
+            if (obj.name == "Ball-Enemy(Clone)") {
+                // Game Over Sound
+                gm.playGameOverSoundEffect();
             }
         }
     }

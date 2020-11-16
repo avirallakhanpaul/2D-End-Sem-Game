@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7394328998385769602}
   - component: {fileID: 2735941420025664716}
   - component: {fileID: -5926766622138008883}
+  - component: {fileID: -4536486103241254092}
   m_Layer: 0
   m_Name: Ball-Player
   m_TagString: ball-player
@@ -161,7 +162,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.35
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -227,3 +228,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-4536486103241254092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393435569142178193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb774787ffc5d9743bec396e72e506e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}
