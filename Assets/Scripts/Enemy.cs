@@ -25,11 +25,11 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if(gm.score > 10 && gm.score < 25) {
+        if(gm.score > 15 && gm.score < 30) {
             if(!(currentSpeed >= maxSpeed)) {
-                currentSpeed += 5 * Time.deltaTime;
+                currentSpeed += 5;
             }
-        } else if(gm.score >= 25) {
+        } else if(gm.score >= 30) {
 
             if(abc) {
                 currentSpeed = maxSpeed;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour {
             }
 
             if(!(currentSpeed >= maxSpeed)) {
-                currentSpeed += 5 * Time.deltaTime;
+                currentSpeed += 5;
             }
         }
 
