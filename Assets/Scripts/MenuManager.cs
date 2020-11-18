@@ -12,11 +12,16 @@ public class MenuManager : MonoBehaviour {
     public Image volumeButtonIcon;
     public Text score;
     public AudioSource clickSoundEffect;
-    public 
+    public bool isMainScene;
     GameManager gm;
     void Start() {
 
-        gm = GameObject.FindObjectOfType<GameManager>();
+        if(SceneManager.GetActiveScene().name == "Main") {
+
+            isMainScene = true;
+            gm = GameObject.FindObjectOfType<GameManager>();
+        }
+
         clickSoundEffect = GetComponent<AudioSource>();
         isMute = false;
     }
@@ -30,7 +35,10 @@ public class MenuManager : MonoBehaviour {
             volumeButtonIcon.sprite = muteIcon;
         }
 
-        score.text = gm.score.ToString();
+        if(isMainScene) {
+            score.text = gm.score.ToString();
+        }
+
     }
 
     public void startGame() {
@@ -48,6 +56,6 @@ public class MenuManager : MonoBehaviour {
 
         clickSoundEffect.Play();
         isMute = !isMute;
-        AudioListener.volume = isMute ? 0 : 1;
+        AudioListener.volume = isMute ? 0 : 0.7f;
     }
 }

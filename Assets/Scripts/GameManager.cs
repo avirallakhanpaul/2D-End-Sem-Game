@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour {
     private float screenHeight;
     public int score;
     public Text scoreText;
+    public Text highScoreTitleText;
+    public GameObject defenseModeTextGameObject;
+    public GameObject attackModeTextGameObject;
+    public Text highScoreText;
     public GameObject spike;
     public GameObject ball;
     private GameObject enemy;
@@ -28,9 +32,15 @@ public class GameManager : MonoBehaviour {
     public AudioSource gameOverSoundEffect;
     public AudioSource gameStateChangeSoundEffect;
     public Canvas GameOverCanvas;
+    public Canvas InstructionsCanvas;
+    public int highScore;
     public bool forMobile;
 
     void Start() {
+
+        isGameStateDefending = true;
+
+        showInstructions();
 
         ballPlayerPrefabs = GameObject.FindGameObjectsWithTag("ball-player");
         spikePlayerPrefabs = GameObject.FindGameObjectsWithTag("spike-player");
@@ -39,10 +49,8 @@ public class GameManager : MonoBehaviour {
             spikePlayerPrefab.SetActive(false);
         }
 
-        isGameStateDefending = true;
-
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        InvokeRepeating("InstantiateEnemyAndPowerup", 1, interval);
+        InvokeRepeating("InstantiateEnemyAndPowerup", 4, interval);
 
         soundEffects = GetComponents<AudioSource>();
         scoreIncSoundEffect = soundEffects[0];
@@ -86,7 +94,7 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(0, 14) == Random.Range(0, 14)) {
+                if(Random.Range(0, 16) == Random.Range(0, 16)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -98,7 +106,7 @@ public class GameManager : MonoBehaviour {
 
             case 2:
 
-                if(Random.Range(0, 14) == Random.Range(0, 14)) {
+                if(Random.Range(0, 16) == Random.Range(0, 16)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -110,7 +118,7 @@ public class GameManager : MonoBehaviour {
 
             case 3:
 
-                if (Random.Range(0, 14) == Random.Range(0, 14)) {
+                if (Random.Range(0, 16) == Random.Range(0, 16)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -122,7 +130,7 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(0, 14) == Random.Range(0, 14)) {
+                if (Random.Range(0, 16) == Random.Range(0, 16)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -143,6 +151,20 @@ public class GameManager : MonoBehaviour {
 
             CancelInvoke();
             GameOverCanvas.gameObject.SetActive(true);
+
+            highScore = PlayerPrefs.GetInt("HighScore");
+
+            if(score > highScore) {
+
+                PlayerPrefs.SetInt("HighScore", score);
+                highScoreTitleText.text = "NEW HIGH SCORE";
+                highScoreText.text = score.ToString();
+            } else {
+
+                highScoreTitleText.text = "HIGH SCORE";
+                highScoreText.text = highScore.ToString();
+            }
+
             return;
         }
 
@@ -161,9 +183,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    void showInstructions() {
+
+        if (isGameStateDefending) {
+
+            defenseModeTextGameObject.SetActive(true);
+            StartCoroutine(deactivateGameObject(defenseModeTextGameObject));
+        } else {
+
+            attackModeTextGameObject.SetActive(true);
+            StartCoroutine(deactivateGameObject(attackModeTextGameObject));
+        }
+    }
+
+    IEnumerator deactivateGameObject(GameObject obj) {
+
+        yield return new WaitForSeconds(2.5f);
+        obj.SetActive(false);
+    }
+
     public void changeGameState() {
 
         isGameStateDefending = !isGameStateDefending;
+        showInstructions();
         gameStateChangeSoundEffect.Play();
 
         foreach (GameObject enemy in enemies) {
