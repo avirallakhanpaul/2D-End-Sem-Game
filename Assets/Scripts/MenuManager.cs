@@ -13,8 +13,17 @@ public class MenuManager : MonoBehaviour {
     public Text score;
     public AudioSource clickSoundEffect;
     public bool isMainScene;
+    public int volumeState;
+    public int mute;
+    public int unmute;
     GameManager gm;
     void Start() {
+
+        mute = 0;
+        unmute = 1;
+        isMute = false;
+
+        volumeState = PlayerPrefs.GetInt("volumeState", unmute);
 
         if(SceneManager.GetActiveScene().name == "Main") {
 
@@ -23,17 +32,20 @@ public class MenuManager : MonoBehaviour {
         }
 
         clickSoundEffect = GetComponent<AudioSource>();
-        isMute = false;
     }
 
     void Update() {
 
-        if (!isMute) {
-            volumeButtonIcon.sprite = volumeIcon;
-        }
-        else if (isMute) {
-            volumeButtonIcon.sprite = muteIcon;
-        }
+        // if (volumeState == 1) {
+        //     Debug.Log("volume State = 1");
+        //     volumeButtonIcon.sprite = volumeIcon;
+        //     AudioListener.volume = 0.7f;
+        // }
+        // else if (volumeState == 0) {
+        //     Debug.Log("volume State = 0");
+        //     volumeButtonIcon.sprite = muteIcon;
+        //     AudioListener.volume = 0;
+        // }
 
         if(isMainScene) {
             score.text = gm.score.ToString();
@@ -56,6 +68,19 @@ public class MenuManager : MonoBehaviour {
 
         clickSoundEffect.Play();
         isMute = !isMute;
-        AudioListener.volume = isMute ? 0 : 0.7f;
+
+        if(isMute) {
+            volumeButtonIcon.sprite = muteIcon;
+            AudioListener.volume = 0;
+        } else {
+            volumeButtonIcon.sprite = volumeIcon;
+            AudioListener.volume = 0.7f;
+        }
+ 
+        // if(isMute) {
+        //     PlayerPrefs.SetInt("volumeState", mute);
+        // } else {
+        //     PlayerPrefs.SetInt("volumeState", unmute);
+        // }
     }
 }

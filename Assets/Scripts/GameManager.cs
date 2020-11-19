@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
 
         isGameStateDefending = true;
 
+        highScore = PlayerPrefs.GetInt("HighScore");
+
         showInstructions();
 
         ballPlayerPrefabs = GameObject.FindGameObjectsWithTag("ball-player");
@@ -151,8 +153,6 @@ public class GameManager : MonoBehaviour {
 
             CancelInvoke();
             GameOverCanvas.gameObject.SetActive(true);
-
-            highScore = PlayerPrefs.GetInt("HighScore");
 
             if(score > highScore) {
 
