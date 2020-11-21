@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour {
     private float accelerationTime;
     public GameManager gm;
     public AudioSource scoreIncSoundEffect;
-    public bool abc = true;
+    public bool speedBool = true;
     void Start() {
 
         gm = GameManager.FindObjectOfType<GameManager>();
@@ -31,11 +31,11 @@ public class Enemy : MonoBehaviour {
             }
         } else if(gm.score >= 30) {
 
-            if(abc) {
+            if(speedBool) {
                 currentSpeed = maxSpeed;
                 maxSpeed = 15.0f;
                 gm.interval = 1.5f;
-                abc = false;
+                speedBool = false;
             }
 
             if(!(currentSpeed >= maxSpeed)) {

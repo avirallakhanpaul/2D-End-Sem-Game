@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
 
+        if(Application.platform == RuntimePlatform.Android) {
+            forMobile = true;
+        }
+
         isGameStateDefending = true;
 
         highScore = PlayerPrefs.GetInt("HighScore");
