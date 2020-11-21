@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour {
     public Canvas GameOverCanvas;
     public Canvas InstructionsCanvas;
     public int highScore;
+    public bool defendBool = false;
+    public bool defendBoolTwo = true;
+    public bool attackBool = true;
     public bool forMobile;
 
     void Start() {
@@ -52,7 +55,9 @@ public class GameManager : MonoBehaviour {
         }
 
         screenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        InvokeRepeating("InstantiateEnemyAndPowerup", 4, interval);
+    
+        interval = 2.0f;
+        InvokeRepeating("instantiateEnemyAndPowerup", 4, interval);
 
         soundEffects = GetComponents<AudioSource>();
         scoreIncSoundEffect = soundEffects[0];
@@ -62,29 +67,31 @@ public class GameManager : MonoBehaviour {
         GameOverCanvas.gameObject.SetActive(false);
     }
 
-    void InstantiateEnemyAndPowerup() {
+    void instantiateEnemyAndPowerup() {
 
         if(isGameStateDefending) {
 
-            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-                ballPlayerPrefab.SetActive(true);
-            }
-            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-                spikePlayerPrefab.SetActive(false);
-            }
+            // enemy = spike;
 
-            enemy = spike;
+            // foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+            //     ballPlayerPrefab.SetActive(true);
+            // }
+            // foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+            //     spikePlayerPrefab.SetActive(false);
+            // }
+
 
         } else if(!isGameStateDefending) {
 
-            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-                spikePlayerPrefab.SetActive(true);
-            }
-            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-                ballPlayerPrefab.SetActive(false);
-            }
+            // enemy = ball;
 
-            enemy = ball;
+            // foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+            //     spikePlayerPrefab.SetActive(true);
+            // }
+            // foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+            //     ballPlayerPrefab.SetActive(false);
+            // }
+
         }
 
         float enemyPositionX = Random.Range(-screenBounds.x, screenBounds.x);
@@ -96,7 +103,7 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(0, 16) == Random.Range(0, 16)) {
+                if(Random.Range(0, 30) == Random.Range(0, 30)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -108,7 +115,7 @@ public class GameManager : MonoBehaviour {
 
             case 2:
 
-                if(Random.Range(0, 16) == Random.Range(0, 16)) {
+                if(Random.Range(0, 30) == Random.Range(0, 30)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -120,7 +127,7 @@ public class GameManager : MonoBehaviour {
 
             case 3:
 
-                if (Random.Range(0, 16) == Random.Range(0, 16)) {
+                if (Random.Range(0, 30) == Random.Range(0, 30)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -132,7 +139,7 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(0, 16) == Random.Range(0, 16)) {
+                if (Random.Range(0, 30) == Random.Range(0, 30)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -181,6 +188,55 @@ public class GameManager : MonoBehaviour {
         }  else {
             scoreText.text = score.ToString();
         }
+
+        if(!isGameStateDefending) {
+
+            enemy = ball;
+
+            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+                spikePlayerPrefab.SetActive(true);
+            }
+            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+                ballPlayerPrefab.SetActive(false);
+            }
+        }
+
+        if(score > 25 && !isGameStateDefending) { // Attack
+            if(attackBool) { 
+                
+                attackBool = false;
+                CancelInvoke();
+                interval = 1.5f;
+                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+            }
+        }
+
+        if(isGameStateDefending) { // Defend
+
+            enemy = spike;
+
+            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+                ballPlayerPrefab.SetActive(true);
+            }
+            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+                spikePlayerPrefab.SetActive(false);
+            }
+
+            if(defendBool) {
+
+                defendBool = false;
+                CancelInvoke();
+                interval = 2.0f;
+                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+            }
+
+            if(score > 25 && defendBoolTwo) {
+                defendBoolTwo = false;
+                CancelInvoke();
+                interval = 1.5f;
+                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+            }
+        }
     }
 
     void showInstructions() {
@@ -208,6 +264,12 @@ public class GameManager : MonoBehaviour {
         showInstructions();
         gameStateChangeSoundEffect.Play();
 
+        if(isGameStateDefending) {
+            defendBool = true;
+        } else {
+            attackBool = true;
+        }
+
         foreach (GameObject enemy in enemies) {
             Destroy(enemy);
         }
@@ -225,5 +287,3 @@ public class GameManager : MonoBehaviour {
         gameOverSoundEffect.Play();
     }
 }
-
-// Instruction on Playing Screen
