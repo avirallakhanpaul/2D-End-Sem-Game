@@ -39,7 +39,7 @@ public class Axle : MonoBehaviour {
             }
         }
 
-        if(isMainScene && gm.score > 30) {
+        if(isMainScene && gm.score > 55) {
             if(!gm.isGameStateDefending) {
                 gameObject.transform.localScale = axleScaleChange;
                 spikeTop.transform.localScale = spikeScaleChange;
@@ -83,23 +83,4 @@ public class Axle : MonoBehaviour {
             }
         }
     }
-
-    // void OnTriggerEnter2D(Collider2D obj) {
-
-    //     if(gm.isGameStateDefending) {
-
-    //         if (obj.name == "Spike-Enemy(Clone)") {
-    //             // Score Increase Sound
-    //             gm.playScoreIncSoundEffect();
-    //         } else if(obj.name == "Game State Swap Powerup") {
-    //             // Game State Change Sound 
-    //         }
-    //     } else {
-
-    //         if (obj.name == "Ball-Enemy(Clone)") {
-    //             // Game Over Sound
-    //             gm.playGameOverSoundEffect();
-    //         }
-    //     }
-    // }
 }

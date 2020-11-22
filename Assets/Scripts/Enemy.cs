@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
         gm = GameManager.FindObjectOfType<GameManager>();
         axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;
         scoreIncSoundEffect = GetComponent<AudioSource>();
+        maxSpeed = 12.0f;
     }
 
     void Update() {
@@ -25,21 +26,21 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if(gm.score > 15 && gm.score < 30) {
+        if(gm.score > 15 && gm.score < 45) {
             if(!(currentSpeed >= maxSpeed)) {
-                currentSpeed += 5;
+                currentSpeed += 2.0f;
             }
-        } else if(gm.score >= 30) {
+        } else if(gm.score >= 45) {
 
             if(speedBool) {
                 currentSpeed = maxSpeed;
-                maxSpeed = 15.0f;
+                maxSpeed = 16.0f;
                 gm.interval = 1.5f;
                 speedBool = false;
             }
 
             if(!(currentSpeed >= maxSpeed)) {
-                currentSpeed += 5;
+                currentSpeed += 4.0f;
             }
         }
 

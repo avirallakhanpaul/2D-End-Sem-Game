@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
     public bool defendBool = false;
     public bool defendBoolTwo = true;
     public bool attackBool = true;
+    public bool hasExecuted = false;
     public bool forMobile;
 
     void Start() {
@@ -193,7 +194,17 @@ public class GameManager : MonoBehaviour {
             scoreText.text = score.ToString();
         }
 
-        if(!isGameStateDefending) {
+        if(isGameStateDefending) { // Defend 
+
+            enemy = spike;
+
+            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+                ballPlayerPrefab.SetActive(true);
+            }
+            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+                spikePlayerPrefab.SetActive(false);
+            }
+        } else { // Attack
 
             enemy = ball;
 
@@ -205,42 +216,49 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if(score > 25 && !isGameStateDefending) { // Attack
-            if(attackBool) { 
+        if(score > 25 && !hasExecuted) { // Common for both Defend and Attack Mode
+
+            hasExecuted = true;
+            CancelInvoke();
+            interval = 1.65f;
+            InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+        }
+
+        // if(score > 20 && !isGameStateDefending && attackBool) { // Attack
                 
-                attackBool = false;
-                CancelInvoke();
-                interval = 1.5f;
-                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-            }
-        }
+        //     attackBool = false;
+        //     CancelInvoke();
+        //     interval = 1.75f;
+        //     InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+        // }
 
-        if(isGameStateDefending) { // Defend
 
-            enemy = spike;
+        // if(isGameStateDefending) { // Defend
 
-            foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-                ballPlayerPrefab.SetActive(true);
-            }
-            foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-                spikePlayerPrefab.SetActive(false);
-            }
+        //     enemy = spike;
 
-            if(defendBool) {
+        //     foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
+        //         ballPlayerPrefab.SetActive(true);
+        //     }
+        //     foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
+        //         spikePlayerPrefab.SetActive(false);
+        //     }
 
-                defendBool = false;
-                CancelInvoke();
-                interval = 2.0f;
-                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-            }
+        //     if(defendBool) {
 
-            if(score > 25 && defendBoolTwo) {
-                defendBoolTwo = false;
-                CancelInvoke();
-                interval = 1.5f;
-                InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-            }
-        }
+        //         defendBool = false;
+        //         CancelInvoke();
+        //         interval = 2.0f;
+        //         InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+        //     }
+
+        //     if(score > 20 && defendBoolTwo) {
+        //         defendBoolTwo = false;
+        //         CancelInvoke();
+        //         interval = 1.75f;
+        //         InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
+        //     }
+        // }
     }
 
     void showInstructions() {
@@ -254,12 +272,6 @@ public class GameManager : MonoBehaviour {
             attackModeTextGameObject.SetActive(true);
             StartCoroutine(deactivateGameObject(attackModeTextGameObject));
         }
-    }
-
-    IEnumerator deactivateGameObject(GameObject obj) {
-
-        yield return new WaitForSeconds(2.5f);
-        obj.SetActive(false);
     }
 
     public void changeGameState() {
@@ -282,6 +294,12 @@ public class GameManager : MonoBehaviour {
             Destroy(powerup);
         }
     } 
+
+    IEnumerator deactivateGameObject(GameObject obj) {
+
+        yield return new WaitForSeconds(2.5f);
+        obj.SetActive(false);
+    }
 
     public void playScoreIncSoundEffect() {
         scoreIncSoundEffect.Play();
