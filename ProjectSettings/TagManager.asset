@@ -12,6 +12,7 @@ TagManager:
   - spike-player
   - enemy
   - powerup
+  - menu-manager
   layers:
   - Default
   - TransparentFX

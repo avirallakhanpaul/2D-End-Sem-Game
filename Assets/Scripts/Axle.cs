@@ -16,8 +16,11 @@ public class Axle : MonoBehaviour {
     public Vector2 axleScaleChange;
     public Vector2 spikeScaleChange;
     public Vector2 ballScaleChange;
+    public MenuManager menuManager;
 
     void Start() {
+
+        menuManager = GameObject.Find("Menu Manager").GetComponent<MenuManager>();
 
         axleScaleChange = new Vector2(0.13f, 10.0f);
         spikeScaleChange = new Vector2(0.9781532f, 0.01222692f);
@@ -65,20 +68,28 @@ public class Axle : MonoBehaviour {
 
             if(gm.forMobile) {
 
-                if(Input.touchCount > 0) {
+                if(!menuManager.isGamePaused) {
 
-                    Touch touch = Input.GetTouch(0);
+                    if(Input.touchCount > 0) {
 
-                    if(touch.phase == TouchPhase.Began) {
-                        rotationSpeed = -rotationSpeed;
-                        directionChangeSoundEffect.Play();
+                        Touch touch = Input.GetTouch(0);
+
+                        if(touch.phase == TouchPhase.Began) {
+                            rotationSpeed = -rotationSpeed;
+                            directionChangeSoundEffect.Play();
+                        }
                     }
                 }
+
             } else {
 
                 if(Input.GetKeyDown("space")) {
-                    rotationSpeed = -rotationSpeed;
-                    directionChangeSoundEffect.Play();
+
+                    if (!menuManager.isGamePaused) {
+
+                        rotationSpeed = -rotationSpeed;
+                        directionChangeSoundEffect.Play();
+                    }
                 }
             }
         }

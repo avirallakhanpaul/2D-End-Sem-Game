@@ -9,11 +9,15 @@ public class MenuManager : MonoBehaviour {
     public bool isMute = false;
     public Sprite volumeIcon;
     public Sprite muteIcon;
+    public Sprite pauseIcon;
+    public Sprite playIcon;
     public Image volumeIconOfStartAndOverMenu;
     public Image volumeIconOfPlayingCanvas;
+    public Image pauseButtonImage;
     public Text score;
     public AudioSource clickSoundEffect;
     public bool isMainScene;
+    public bool isGamePaused = false;
     GameManager gm;
 
     void Start() {
@@ -25,6 +29,16 @@ public class MenuManager : MonoBehaviour {
     void Update() {
 
         score.text = gm.score.ToString();
+
+        if (isGamePaused) {
+            pauseButtonImage.transform.localScale = new Vector2(2.0f, 2.0f);
+            pauseButtonImage.sprite = playIcon;
+            Time.timeScale = 0;
+        } else {
+            pauseButtonImage.transform.localScale = new Vector2(1.0f, 1.0f);
+            pauseButtonImage.sprite = pauseIcon;
+            Time.timeScale = 1;
+        }
 
         if (StartMenuManager.isMute || AudioListener.volume == 0) {
             volumeIconOfStartAndOverMenu.sprite = muteIcon;
@@ -62,5 +76,10 @@ public class MenuManager : MonoBehaviour {
             volumeIconOfPlayingCanvas.sprite = volumeIcon;
             AudioListener.volume = 0.5f;
         }
+    }
+
+    public void togglePauseGame()
+    {
+        isGamePaused = !isGamePaused;
     }
 }

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
     public bool defendBool = false;
     public bool defendBoolTwo = true;
     public bool attackBool = true;
-    public bool hasExecuted = false;
+    public bool hasExecuted = false; 
     public bool forMobile;
 
     void Start() {
