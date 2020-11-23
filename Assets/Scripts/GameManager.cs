@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     public bool defendBoolTwo = true;
     public bool attackBool = true;
     public bool hasExecuted = false; 
+    public float gameTime;
     public bool forMobile;
 
     void Start() {
@@ -73,31 +74,6 @@ public class GameManager : MonoBehaviour {
     }
 
     void instantiateEnemyAndPowerup() {
-
-        if(isGameStateDefending) {
-
-            // enemy = spike;
-
-            // foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-            //     ballPlayerPrefab.SetActive(true);
-            // }
-            // foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-            //     spikePlayerPrefab.SetActive(false);
-            // }
-
-
-        } else if(!isGameStateDefending) {
-
-            // enemy = ball;
-
-            // foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-            //     spikePlayerPrefab.SetActive(true);
-            // }
-            // foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-            //     ballPlayerPrefab.SetActive(false);
-            // }
-
-        }
 
         float enemyPositionX = Random.Range(-screenBounds.x, screenBounds.x);
         float enemyPositionY = Random.Range(-screenBounds.y, screenBounds.y);
@@ -157,6 +133,8 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+
+        gameTime = Time.time;
 
         enemies = GameObject.FindGameObjectsWithTag("enemy");
         powerups = GameObject.FindGameObjectsWithTag("powerup");
@@ -223,42 +201,6 @@ public class GameManager : MonoBehaviour {
             interval = 1.65f;
             InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
         }
-
-        // if(score > 20 && !isGameStateDefending && attackBool) { // Attack
-                
-        //     attackBool = false;
-        //     CancelInvoke();
-        //     interval = 1.75f;
-        //     InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-        // }
-
-
-        // if(isGameStateDefending) { // Defend
-
-        //     enemy = spike;
-
-        //     foreach (GameObject ballPlayerPrefab in ballPlayerPrefabs) {
-        //         ballPlayerPrefab.SetActive(true);
-        //     }
-        //     foreach (GameObject spikePlayerPrefab in spikePlayerPrefabs) {
-        //         spikePlayerPrefab.SetActive(false);
-        //     }
-
-        //     if(defendBool) {
-
-        //         defendBool = false;
-        //         CancelInvoke();
-        //         interval = 2.0f;
-        //         InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-        //     }
-
-        //     if(score > 20 && defendBoolTwo) {
-        //         defendBoolTwo = false;
-        //         CancelInvoke();
-        //         interval = 1.75f;
-        //         InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
-        //     }
-        // }
     }
 
     void showInstructions() {

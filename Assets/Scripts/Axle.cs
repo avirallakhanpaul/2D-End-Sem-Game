@@ -20,8 +20,6 @@ public class Axle : MonoBehaviour {
 
     void Start() {
 
-        menuManager = GameObject.Find("Menu Manager").GetComponent<MenuManager>();
-
         axleScaleChange = new Vector2(0.13f, 10.0f);
         spikeScaleChange = new Vector2(0.9781532f, 0.01222692f);
         ballScaleChange = new Vector2(1.0f, 0.0125f);
@@ -31,6 +29,10 @@ public class Axle : MonoBehaviour {
             isMainScene = true;
             gm = GameObject.FindObjectOfType<GameManager>();
             directionChangeSoundEffect = GetComponent<AudioSource>();
+        }
+
+        if(isMainScene) {
+            menuManager = GameObject.Find("Menu Manager").GetComponent<MenuManager>();
         }
     }
 

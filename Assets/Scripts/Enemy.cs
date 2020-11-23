@@ -26,11 +26,11 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if(gm.score > 15 && gm.score < 45) {
+        if(gm.gameTime > 25.0f && gm.score < 45) {  // score > 15 and < 45
             if(!(currentSpeed >= maxSpeed)) {
                 currentSpeed += 2.0f;
             }
-        } else if(gm.score >= 45) {
+        } else if(gm.score >= 45) {  // score >= 45
 
             if(speedBool) {
                 currentSpeed = maxSpeed;

@@ -78,8 +78,11 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-    public void togglePauseGame()
-    {
+    public void togglePauseGame() {
         isGamePaused = !isGamePaused;
+    }
+
+    public void goToHome() {
+        SceneManager.LoadScene("StartMenu");
     }
 }
