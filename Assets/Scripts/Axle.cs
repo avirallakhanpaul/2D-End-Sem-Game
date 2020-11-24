@@ -44,7 +44,7 @@ public class Axle : MonoBehaviour {
             }
         }
 
-        if(isMainScene && gm.score > 55) {
+        if(isMainScene && gm.gameTime > 85.0f) {
             if(!gm.isGameStateDefending) {
                 gameObject.transform.localScale = axleScaleChange;
                 spikeTop.transform.localScale = spikeScaleChange;

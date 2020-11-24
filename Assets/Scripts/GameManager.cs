@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(0, 30) == Random.Range(0, 30)) {
+                if(Random.Range(0, 35) == Random.Range(0, 35)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
 
             case 2:
 
-                if(Random.Range(0, 30) == Random.Range(0, 30)) {
+                if(Random.Range(0, 35) == Random.Range(0, 35)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour {
 
             case 3:
 
-                if (Random.Range(0, 30) == Random.Range(0, 30)) {
+                if (Random.Range(0, 35) == Random.Range(0, 35)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(0, 30) == Random.Range(0, 30)) {
+                if (Random.Range(0, 35) == Random.Range(0, 35)) {
                     Instantiate(powerup);
                     powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
@@ -134,7 +134,9 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
 
-        gameTime = Time.time;
+        gameTime = Time.timeSinceLevelLoad;
+
+        Debug.Log(gameTime);
 
         enemies = GameObject.FindGameObjectsWithTag("enemy");
         powerups = GameObject.FindGameObjectsWithTag("powerup");
@@ -194,11 +196,11 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        if(score > 25 && !hasExecuted) { // Common for both Defend and Attack Mode
+        if(gameTime >= 70.0f && !hasExecuted) { // Common for both Defend and Attack Mode | gm.score >= 25
 
             hasExecuted = true;
             CancelInvoke();
-            interval = 1.65f;
+            interval = 1.5f;
             InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
         }
     }
