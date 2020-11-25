@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Axle : MonoBehaviour {
     
@@ -76,16 +77,20 @@ public class Axle : MonoBehaviour {
 
                         Touch touch = Input.GetTouch(0);
 
-                        if(touch.phase == TouchPhase.Began) {
-                            rotationSpeed = -rotationSpeed;
-                            directionChangeSoundEffect.Play();
+                        if(!EventSystem.current.IsPointerOverGameObject(touch.fingerId)) {
+                            
+                            if(touch.phase == TouchPhase.Began) {
+                                rotationSpeed = -rotationSpeed;
+                                directionChangeSoundEffect.Play();
+                            }
                         }
+
                     }
                 }
 
             } else {
 
-                if(Input.GetKeyDown("space")) {
+                if(Input.GetKeyDown("space") && !EventSystem.current.IsPointerOverGameObject()) {
 
                     if (!menuManager.isGamePaused) {
 

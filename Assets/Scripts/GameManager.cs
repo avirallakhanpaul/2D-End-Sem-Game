@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour {
     public GameObject spike;
     public GameObject ball;
     private GameObject enemy;
-    public GameObject powerup;
+    public GameObject stateChangePowerup;
+    public GameObject otherPowerup;
     public float interval;
     public bool isGameOver;
     GameObject[] spikePlayerPrefabs;
@@ -34,11 +35,9 @@ public class GameManager : MonoBehaviour {
     public Canvas GameOverCanvas;
     public Canvas InstructionsCanvas;
     public int highScore;
-    public bool defendBool = false;
-    public bool defendBoolTwo = true;
-    public bool attackBool = true;
     public bool hasExecuted = false; 
     public float gameTime;
+    Axle axleScript;
     public bool forMobile;
 
     void Start() {
@@ -65,6 +64,7 @@ public class GameManager : MonoBehaviour {
         interval = 2.0f;
         InvokeRepeating("instantiateEnemyAndPowerup", 4, interval);
 
+        axleScript = GameObject.FindGameObjectWithTag("axle").GetComponent<Axle>();
         soundEffects = GetComponents<AudioSource>();
         scoreIncSoundEffect = soundEffects[0];
         gameOverSoundEffect = soundEffects[1];
@@ -84,33 +84,42 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(0, 35) == Random.Range(0, 35)) {
-                    Instantiate(powerup);
-                    powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                if(Random.Range(0, 10) == Random.Range(0, 10)) {
+                    Instantiate(stateChangePowerup);
+                    stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                } else if(Random.Range(0, 12) == Random.Range(0, 12)) {
+                    Instantiate(otherPowerup);
+                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
-                Instantiate(enemy);
-                enemy.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                    Instantiate(enemy);
+                    enemy.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 }
 
                 break;
 
             case 2:
 
-                if(Random.Range(0, 35) == Random.Range(0, 35)) {
-                    Instantiate(powerup);
-                    powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                if(Random.Range(0, 10) == Random.Range(0, 10)) {
+                    Instantiate(stateChangePowerup);
+                    stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                } else if (Random.Range(0, 12) == Random.Range(0, 12)){
+                    Instantiate(otherPowerup);
+                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
-                Instantiate(enemy);
-                enemy.transform.position = new Vector2(screenBounds.x, enemyPositionY);
+                    Instantiate(enemy);
+                    enemy.transform.position = new Vector2(screenBounds.x, enemyPositionY);
                 }
 
                 break;
 
             case 3:
 
-                if (Random.Range(0, 35) == Random.Range(0, 35)) {
-                    Instantiate(powerup);
-                    powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                if (Random.Range(0, 10) == Random.Range(0, 10)) {
+                    Instantiate(stateChangePowerup);
+                    stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                } else if (Random.Range(0, 12) == Random.Range(0, 12)) {
+                    Instantiate(otherPowerup);
+                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
                 Instantiate(enemy);
                 enemy.transform.position = new Vector2(enemyPositionX, -screenBounds.y);
@@ -120,9 +129,12 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(0, 35) == Random.Range(0, 35)) {
-                    Instantiate(powerup);
-                    powerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                if (Random.Range(0, 10) == Random.Range(0, 10)) {
+                    Instantiate(stateChangePowerup);
+                    stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                } else if (Random.Range(0, 12) == Random.Range(0, 12)) {
+                    Instantiate(otherPowerup);
+                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 } else {
                 Instantiate(enemy);
                 enemy.transform.position = new Vector2(-screenBounds.x, enemyPositionY);
@@ -135,7 +147,6 @@ public class GameManager : MonoBehaviour {
     void Update() {
 
         gameTime = Time.timeSinceLevelLoad;
-
         Debug.Log(gameTime);
 
         enemies = GameObject.FindGameObjectsWithTag("enemy");
@@ -218,24 +229,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void changeGameState() {
+    public void changeGameState(string powerupName) {
 
-        isGameStateDefending = !isGameStateDefending;
-        showInstructions();
         gameStateChangeSoundEffect.Play();
 
-        if(isGameStateDefending) {
-            defendBool = true;
+        if(powerupName.Contains("State")) {
+
+            isGameStateDefending = !isGameStateDefending;
+            showInstructions();
+
+            foreach (GameObject enemy in enemies) {
+                Destroy(enemy);
+            }
+
+            foreach (GameObject powerup in powerups) {
+                Destroy(powerup);
+            }
         } else {
-            attackBool = true;
-        }
 
-        foreach (GameObject enemy in enemies) {
-            Destroy(enemy);
-        }
+            foreach (GameObject powerup in powerups) {
+                Destroy(powerup);
+            }
 
-        foreach (GameObject powerup in powerups) {
-            Destroy(powerup);
+            StartCoroutine(speedUpAxleSpeed());
         }
     } 
 
@@ -243,6 +259,13 @@ public class GameManager : MonoBehaviour {
 
         yield return new WaitForSeconds(2.5f);
         obj.SetActive(false);
+    }
+
+    IEnumerator speedUpAxleSpeed() {
+
+        axleScript.rotationSpeed = 500.0f;
+        yield return new WaitForSeconds(2);
+        axleScript.rotationSpeed = 180.0f;
     }
 
     public void playScoreIncSoundEffect() {

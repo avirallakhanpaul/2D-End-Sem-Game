@@ -995,7 +995,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503446794}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: bf8b5cb13dcd73e4c805fe9ec43e982d, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 519420031}
@@ -2274,7 +2274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
+  m_Color: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.7058824}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3627,7 +3627,10 @@ MonoBehaviour:
   highScoreText: {fileID: 984127869}
   spike: {fileID: 278448930657982673, guid: 5eaf62a4cf7f0c54eb45362a8e51132c, type: 3}
   ball: {fileID: 786207621755013999, guid: cf8c4bd141793464aa99c8ccfef95bba, type: 3}
-  powerup: {fileID: 963186845132896640, guid: ded85871c16fcf84fbda473957735dcf, type: 3}
+  stateChangePowerup: {fileID: 963186845132896640, guid: ded85871c16fcf84fbda473957735dcf,
+    type: 3}
+  otherPowerup: {fileID: 963186845132896640, guid: 155ee8e09666236479b9d4a905519bce,
+    type: 3}
   interval: 2
   isGameOver: 0
   soundEffects: []
@@ -3637,9 +3640,6 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 1392186589}
   InstructionsCanvas: {fileID: 0}
   highScore: 0
-  defendBool: 0
-  defendBoolTwo: 1
-  attackBool: 1
   hasExecuted: 0
   gameTime: 0
   forMobile: 0
@@ -4602,102 +4602,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7069601781805124968}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &7069601781805124970
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7069601781805124969}
-  m_Enabled: 0
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe6c612ce4da99a40ac7fa02da164191, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!50 &7069601781805124971
 Rigidbody2D:
   serializedVersion: 4
@@ -4719,18 +4623,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &7069601781805124972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7069601781805124969}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8e1273e2a34334408bd04f5d1d011d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &7069601781805124974
 CircleCollider2D:
   m_ObjectHideFlags: 0

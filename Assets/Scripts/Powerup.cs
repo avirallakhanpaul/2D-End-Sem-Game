@@ -6,6 +6,7 @@ public class Powerup : MonoBehaviour {
 
     public Transform axleMidPoint;
     public float currentSpeed;
+    public string powerupName;
     public GameManager gm;
 
     void Start() {
@@ -13,6 +14,8 @@ public class Powerup : MonoBehaviour {
         gm = GameObject.FindObjectOfType<GameManager>();
         axleMidPoint = GameObject.FindGameObjectWithTag("axle-mid-point").transform;
         currentSpeed = 5.0f;
+
+        powerupName = gameObject.name;
     }
 
     void Update() {
@@ -29,7 +32,7 @@ public class Powerup : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D obj) {
 
         if(obj.CompareTag("axle")) {
-            gm.changeGameState();
+            gm.changeGameState(powerupName);
         }
     }
 }
