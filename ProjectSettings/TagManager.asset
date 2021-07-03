@@ -50,3 +50,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Above Portal
+    uniqueID: 302776483
+    locked: 0
+  - name: Portal Layer
+    uniqueID: 4292800993
+    locked: 0

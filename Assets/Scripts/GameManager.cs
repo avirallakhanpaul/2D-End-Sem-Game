@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour {
 
@@ -37,6 +36,7 @@ public class GameManager : MonoBehaviour {
     public int highScore;
     public bool hasExecuted = false; 
     public float gameTime;
+    private VideoPlayer videoPlayer;
     Axle axleScript;
     public bool forMobile;
 
@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour {
         if(Application.platform == RuntimePlatform.Android) {
             forMobile = true;
         }
+
+        // videoPlayer = GetComponent<VideoPlayer>();
+        // videoPlayer.clip = Resources.Load<VideoClip>("Portal V3");
 
         isGameStateDefending = true;
 
@@ -84,13 +87,15 @@ public class GameManager : MonoBehaviour {
 
             case 1:
 
-                if(Random.Range(0, 10) == Random.Range(0, 10)) {
+                if(Random.Range(0, 32) == Random.Range(0, 32)) {
                     Instantiate(stateChangePowerup);
                     stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else if(Random.Range(0, 12) == Random.Range(0, 12)) {
-                    Instantiate(otherPowerup);
-                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else {
+                } 
+                // else if(Random.Range(0, 12) == Random.Range(0, 12)) {
+                //     Instantiate(otherPowerup);
+                //     otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                // } 
+                else {
                     Instantiate(enemy);
                     enemy.transform.position = new Vector2(enemyPositionX, screenBounds.y);
                 }
@@ -99,13 +104,15 @@ public class GameManager : MonoBehaviour {
 
             case 2:
 
-                if(Random.Range(0, 10) == Random.Range(0, 10)) {
+                if(Random.Range(0, 32) == Random.Range(0, 32)) {
                     Instantiate(stateChangePowerup);
                     stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else if (Random.Range(0, 12) == Random.Range(0, 12)){
-                    Instantiate(otherPowerup);
-                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else {
+                } 
+                // else if (Random.Range(0, 12) == Random.Range(0, 12)){
+                //     Instantiate(otherPowerup);
+                //     otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                // } 
+                else {
                     Instantiate(enemy);
                     enemy.transform.position = new Vector2(screenBounds.x, enemyPositionY);
                 }
@@ -114,13 +121,15 @@ public class GameManager : MonoBehaviour {
 
             case 3:
 
-                if (Random.Range(0, 10) == Random.Range(0, 10)) {
+                if (Random.Range(0, 32) == Random.Range(0, 32)) {
                     Instantiate(stateChangePowerup);
                     stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else if (Random.Range(0, 12) == Random.Range(0, 12)) {
-                    Instantiate(otherPowerup);
-                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else {
+                } 
+                // else if (Random.Range(0, 12) == Random.Range(0, 12)) {
+                //     Instantiate(otherPowerup);
+                //     otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                // } 
+                else {
                 Instantiate(enemy);
                 enemy.transform.position = new Vector2(enemyPositionX, -screenBounds.y);
                 }
@@ -129,13 +138,15 @@ public class GameManager : MonoBehaviour {
 
             case 4:
 
-                if (Random.Range(0, 10) == Random.Range(0, 10)) {
+                if (Random.Range(0, 32) == Random.Range(0, 32)) {
                     Instantiate(stateChangePowerup);
                     stateChangePowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else if (Random.Range(0, 12) == Random.Range(0, 12)) {
-                    Instantiate(otherPowerup);
-                    otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
-                } else {
+                } 
+                // else if (Random.Range(0, 12) == Random.Range(0, 12)) {
+                //     Instantiate(otherPowerup);
+                //     otherPowerup.transform.position = new Vector2(enemyPositionX, screenBounds.y);
+                // } 
+                else {
                 Instantiate(enemy);
                 enemy.transform.position = new Vector2(-screenBounds.x, enemyPositionY);
                 }
@@ -147,7 +158,7 @@ public class GameManager : MonoBehaviour {
     void Update() {
 
         gameTime = Time.timeSinceLevelLoad;
-        Debug.Log(gameTime);
+        // Debug.Log(gameTime);
 
         enemies = GameObject.FindGameObjectsWithTag("enemy");
         powerups = GameObject.FindGameObjectsWithTag("powerup");
@@ -214,6 +225,10 @@ public class GameManager : MonoBehaviour {
             interval = 1.5f;
             InvokeRepeating("instantiateEnemyAndPowerup", 0, interval);
         }
+    }
+
+    public void showBannerAd() {
+        Debug.Log("Showing Banner AD...");
     }
 
     void showInstructions() {

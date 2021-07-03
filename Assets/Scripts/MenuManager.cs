@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MenuManager : MonoBehaviour {
 
@@ -19,10 +18,11 @@ public class MenuManager : MonoBehaviour {
     public bool isMainScene;
     public bool isGamePaused = false;
     GameManager gm;
+    AdsManager adm;
 
     void Start() {
-
         gm = GameObject.FindObjectOfType<GameManager>();
+        adm = GameObject.FindObjectOfType<AdsManager>();
         clickSoundEffect = GetComponent<AudioSource>();
     }
 
@@ -51,7 +51,7 @@ public class MenuManager : MonoBehaviour {
 
     public void startGame() {
         clickSoundEffect.Play();
-        SceneManager.LoadScene("Main");
+        adm.showInterstitialAd();
     }
 
     public void quitGame() {

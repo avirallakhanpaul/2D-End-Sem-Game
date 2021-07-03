@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
@@ -27,11 +25,11 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if(gm.gameTime >= 30.0f && gm.gameTime < 55.0f) {  // score > 15 and < 45 | gameTime >= 25 && gameTime > 45
+        if(gm.score >= 10 && gm.score < 40) {  // score > 15 and < 45 | gameTime >= 25 && gameTime > 45
             if(!(currentSpeed >= maxSpeed)) {
                 currentSpeed += 2.0f;
             }
-        } else if(gm.gameTime >= 55.0f) {  // score >= 45
+        } else if(gm.score >= 40) {  // score >= 45
 
             if(speedBool) {
                 speedBool = false;
